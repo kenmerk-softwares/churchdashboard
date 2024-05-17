@@ -312,7 +312,7 @@ export const SalesValueWidget = (props) => {
           <h5 className="fw-normal mb-2">
             {title}
           </h5>
-          <h3>${value}</h3>
+          <h3>₹{value}</h3>
           <small className="fw-bold mt-2">
             <span className="me-2">Yesterday</span>
             <FontAwesomeIcon icon={percentageIcon} className={`${percentageColor} me-1`} />
@@ -345,7 +345,7 @@ export const SalesValueWidgetPhone = (props) => {
           <h5 className="fw-normal mb-2">
             {title}
           </h5>
-          <h3>${value}</h3>
+          <h3>₹{value}</h3>
           <small className="fw-bold mt-2">
             <span className="me-2">Yesterday</span>
             <FontAwesomeIcon icon={percentageIcon} className={`${percentageColor} me-1`} />

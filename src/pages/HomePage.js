@@ -51,6 +51,12 @@ import Addprayers from '../components/Prayers/Addprayers.jsx';
 import Prayers from '../components/Prayers/Prayers.jsx';
 import Notice from '../components/Notice/Notice.jsx';
 import Addnotice from '../components/Notice/Addnotice.jsx';
+import WardList from '../components/Ward/WardList.jsx';
+import Users from '../components/Users/Users.jsx';
+import FeaturedItems from '../components/FeaturedItems/FeaturedItems.jsx';
+import AddFeaturedItems from '../components/FeaturedItems/AddFeaturedItems.jsx';
+import Profile from '../components/Profile/Profile.jsx';
+import AddWard from '../components/Ward/AddWard.jsx';
 
 const AppRoutes = ({element: Element}) => {
   const [loaded, setLoaded] = useState(false);
@@ -107,7 +113,8 @@ const AppRoutes = ({element: Element}) => {
          <Routes>
            
       
-         <Route path={Pathname.DashboardOverview.path}    element={
+         <Route path={Pathname.DashboardOverview.path}   
+          element={
               <>
                 <Sidebar />
                 <main className="content">
@@ -118,6 +125,48 @@ const AppRoutes = ({element: Element}) => {
               </> 
         
               } />
+              <Route path={Pathname.Profile.path} 
+    element={
+     <>
+                <Sidebar />
+                <main className="content">
+                  <Navbar />
+                  <Profile />
+                  <Footer />
+                </main>
+              </> 
+       } />
+
+<Route path={Pathname.Users.path} 
+    element={
+     <>
+                <Sidebar />
+                <main className="content">
+                  <Navbar />
+                  <Users />
+                  <Footer />
+                </main>
+              </> 
+       } />
+       <Route path={Pathname.FeaturedItems.path} 
+    element={
+     <>
+                <Sidebar />
+                <main className="content">
+                  <Navbar />
+                  <FeaturedItems />
+                  <Footer />
+                </main>
+              </> 
+       } />
+        <Route path={Pathname.AddFeaturedItems.path} element={ <>
+                <Sidebar />
+                <main className="content">
+                  <Navbar />
+                  <AddFeaturedItems />
+                  <Footer />
+                </main>
+              </>} />
     <Route path={Pathname.Clergy.path} 
     element={
      <>
@@ -134,6 +183,14 @@ const AppRoutes = ({element: Element}) => {
                 <main className="content">
                   <Navbar />
                   <Addclergy />
+                  <Footer />
+                </main>
+              </>} />
+              <Route path={Pathname.AddWard.path} element={ <>
+                <Sidebar />
+                <main className="content">
+                  <Navbar />
+                  <AddWard />
                   <Footer />
                 </main>
               </>} />
@@ -343,6 +400,13 @@ const AppRoutes = ({element: Element}) => {
                 
                   <Footer />
                 </main><Toasts /></>} />
+                <Route path={Pathname.Wards.path} element={ <>
+                <Sidebar />
+                <main className="content">
+                  <Navbar />
+                
+                  <WardList />
+                </main></>} />
 
 
 
