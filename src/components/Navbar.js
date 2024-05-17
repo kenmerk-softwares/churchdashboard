@@ -102,7 +102,7 @@ const navigate=useNavigate();
           </div>
 
           ):null}
-          CHURCH NAME
+          CRM
           <Nav className="align-items-center">
             <Dropdown as={Nav.Item} onToggle={markNotificationsAsRead} >
               <Dropdown.Toggle as={Nav.Link} className="text-dark icon-notifications me-lg-3">

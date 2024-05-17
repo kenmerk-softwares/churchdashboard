@@ -1,12 +1,17 @@
+import AddWard from "./components/Ward/AddWard";
 
 export const Pathname = {
 
 
 
   // churchpages
-
+   Users: { path: "/Users"},
+   FeaturedItems: { path: "/featuredItems"},
+   AddFeaturedItems: { path: "/addFeaturedItems"},
+   Profile: { path:"/profile"},
    Clergy: { path: "/clergy" },
     Addclergy: { path: "/addclergy" },
+    AddWard: { path: "/addward" },
       Committe: { path: "/committe" },
         Addcommitte: { path: "/addcommitte" },
          Addnotice: { path: "/Addnotice" },
@@ -21,6 +26,7 @@ export const Pathname = {
                           Wards: { path: "/wards" },
                            Blood: { path: "/blooddonation" },
                             Notifications: { path: "/notification" },
+                            
 
 
 

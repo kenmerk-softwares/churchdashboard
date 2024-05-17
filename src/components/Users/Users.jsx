@@ -13,8 +13,9 @@ import { useNavigate } from 'react-router-dom';
 import { Pathname } from "../../routes.js";
 import Spinner from 'react-bootstrap/Spinner';
 import Toast from 'react-bootstrap/Toast';
+import { faChartLine } from '@fortawesome/free-solid-svg-icons'
 
-import { DataGrid,GridToolbar } from '@mui/x-data-grid';
+
 import {
   collection,
   onSnapshot,
@@ -27,6 +28,7 @@ import {
   orderBy,
   getDoc
 } from "firebase/firestore";
+import { CounterWidget } from "../Widgets.js";
 
 
 
@@ -35,7 +37,7 @@ import {
 
 
 
-function Notice() {
+function Users() {
   const [loading, setloading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [allDocs, setallDocs] = useState([]);
@@ -50,7 +52,7 @@ function Notice() {
   const navigate = useNavigate();
 
   const handleNavigate = (action, value, data) => {
-    navigate(Pathname.Addnotice.path, { state: { action, id: value, data: data } });
+    navigate(Pathname.Addclergy.path, { state: { action, id: value, data: data } });
   };
 
   useEffect(() => {
@@ -64,7 +66,7 @@ function Notice() {
 
   useEffect(() => {
     setloading(true);
-    const response = collection(db, "notice");
+    const response = collection(db, "clergy");
     const q = query(response, orderBy("order", "asc"));
 data_listener(q )
   
@@ -86,8 +88,6 @@ data_listener(q )
                 sl: i,
                 id: change.doc.id,
                 data: change.doc.data(),
-                name:change.doc.data().notice_name,
-                   status:change.doc.data().status,
               },
             ];
           });
@@ -120,13 +120,13 @@ data_listener(q )
   };
 
   const handleDelete = (id) => {
-    deleteDoc(doc(db, "notice", id)).then(() => {
+    deleteDoc(doc(db, "clergy", id)).then(() => {
       console.log("done");
     });
   };
 
   const handleChapterStatusChange = (value, id, cat) => {
-    updateDoc(doc(db, "notice", id), {
+    updateDoc(doc(db, "clergy", id), {
       status: value,
     }).then(() => {
       console.log("done");
@@ -139,7 +139,7 @@ data_listener(q )
 
    const handleSearch = (searchInput) => {
    
-    const response = collection(db, "notice");
+    const response = collection(db, "clergy");
 
 
     // Check if the searchInput is empty
@@ -159,16 +159,7 @@ data_listener(q );
   
    data_listener(q);
    }
-  const columns = [
- { field: "count", headerName: "Sl", width: 50 },
-    { field: "name", headerName: "Student Name", width: 130 },
-        { field: "status", headerName: "Date of birth", width: 130 },
-            { field: "Action", headerName: "Mobile", width: 130 },
-        
 
- 
-
-  ];
   return (
   
     <>
@@ -187,10 +178,10 @@ data_listener(q );
         <div className="d-block mb-4 mb-md-0">
           <Breadcrumb className="d-none d-md-inline-block" listProps={{ className: "breadcrumb-dark breadcrumb-transparent" }}>
             <Breadcrumb.Item><FontAwesomeIcon icon={faHome} /></Breadcrumb.Item>
-            <Breadcrumb.Item>Church</Breadcrumb.Item>
-            <Breadcrumb.Item active>Notice</Breadcrumb.Item>
+            <Breadcrumb.Item>CRM</Breadcrumb.Item>
+            <Breadcrumb.Item active>Users</Breadcrumb.Item>
           </Breadcrumb>
-     
+          <h4>Users Info</h4>
         
         </div>
        
@@ -223,7 +214,7 @@ data_listener(q );
     </Dropdown>
         </Col>
           <Col xs={8} md={6} lg={3} xl={4}>
-            <InputGroup >
+            <InputGroup className="mb-3">
               <InputGroup.Text>
                 <FontAwesomeIcon icon={faSearch} />
               </InputGroup.Text>
@@ -237,17 +228,21 @@ data_listener(q );
        
         </Row>
 
-           <Card border="light" className="table-wrapper table-responsive shadow-sm mt-3">
+           <Card border="light" className="table-wrapper table-responsive shadow-sm">
       <Card.Body className="pt-0">
         <Table hover className="user-table align-items-center">
           <thead>
             <tr>
               <th className="border-bottom">#</th>
               <th className="border-bottom">Name</th>
-
-              
+              <th className="border-bottom">Mobile</th>
+              <th className="border-bottom">Email</th>
+              <th className="border-bottom">Created at</th>
+              <th className="border-bottom">Last Active Time</th>
+              <th className="border-bottom">State</th>
+              <th className="border-bottom">Country</th>
               <th className="border-bottom">Status</th>
-              <th className="border-bottom">Action</th>
+              <th className="border-bottom">View</th>
             </tr>
           </thead>
 
@@ -263,84 +258,31 @@ data_listener(q );
         </td>
         <td>
           <span className="fw-normal">
-          {doc.data.notice_name}
+          {doc.data.name}
           </span>
         </td>
-       
-       
         <td>
-          <span className={doc.data.status?`fw-normal text- text-success`:`fw-normal text- text-danger`}>
-
-  {doc.data.status?(
-
-              <Button variant="success" onClick={() => {
-                          handleChapterStatusChange(
-                                        false,
-                                        doc.id,
-                                      
-                                      );
-                        }}>ON</Button>
-    ):(
-      <Button variant="danger"  onClick={() => {
-                          handleChapterStatusChange(
-                                        true,
-                                        doc.id,
-                                      
-                                      );
-                        }}>OFF</Button>
-           
-         )}   
+          <span className="fw-normal">
+        13244343444
           </span>
-
-        
- 
         </td>
         <td>
-          <Dropdown as={ButtonGroup}>
-            <Dropdown.Toggle as={Button} split variant="link" className="text-dark m-0 p-0">
-              <span className="icon icon-sm">
-                <FontAwesomeIcon icon={faEllipsisH} className="icon-dark" />
-              </span>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-                <Dropdown.Item className=" text-info " 
-             onClick={() => {
-  // Assuming doc.data.url contains the URL of the PDF
-  const pdfUrl = doc.data.img_url;
-
-  // Check if the URL is present
-  if (pdfUrl) {
-    // Open the PDF in a new tab or window
-    window.open(pdfUrl, '_blank');
-  } else {
-    // Handle the case when the PDF URL is not available
-    console.error('PDF URL is not available');
-  }
-}}
-              
-              >
-                <FontAwesomeIcon icon={faEdit} className=" text-info me-2" /> View
-              </Dropdown.Item>
-              <Dropdown.Item className=" text-warning " 
-              onClick={() => {
-                          handleNavigate(
-                                       "edit", doc.id, doc.data
-                                      
-                                      );
-                        }}
-              
-              >
-                <FontAwesomeIcon icon={faEdit} className=" text-warning me-2" /> Edit
-              </Dropdown.Item>
-              <Dropdown.Item   onClick={() => {
-                          handleDelete(doc.id);
-                        }} className="text-danger">
-                <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
-              </Dropdown.Item>
-            
-            </Dropdown.Menu>
-          </Dropdown>
+          <span className="fw-normal">
+        user123@gmail.com
+          </span>
         </td>
+        <td>
+           01/04/2024
+        </td>
+        <td>
+        11.06 AM
+        </td>
+        <td>
+          Kerala
+        </td>
+        <td>India</td>
+        <td>Inactive</td>
+        <td><Button variant="success">View</Button></td>
       </tr>
       
           </tbody>
@@ -356,13 +298,14 @@ data_listener(q );
               Previous
             </Pagination.Prev>
             {Array.from({ length: Math.ceil(allDocs.length / rows) }, (_, index) => (
-              <Pagination.Item
+              <Pagination.Next
                 key={index}
                 active={index + 1 === currentPage}
                 onClick={() => onPageChange(index + 1)}
+               
               >
                 {index + 1}
-              </Pagination.Item>
+              </Pagination.Next>
             ))}
             <Pagination.Next
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(allDocs.length / rows)))}
@@ -374,17 +317,7 @@ data_listener(q );
       </Card.Footer>
    </Card.Body>
         </Card>
-      </div>
-        <div style={{ height: 600, width: "100%" }}>
-       <DataGrid
-        rows={allDocs}
-        columns={columns}
-        pageSize={100}
-        rowsPerPageOptions={[100]}
-        components={{
-          Toolbar: GridToolbar,
-        }}
-      />
+       
       </div>
       </>
 )}
@@ -396,4 +329,4 @@ data_listener(q );
   );
 }
 
-export default Notice;
+export default Users;

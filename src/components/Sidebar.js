@@ -12,6 +12,7 @@ import { Pathname } from "../routes";
 import ThemesbergLogo from "../assets/img/themesberg.svg";
 import ReactHero from "../assets/img/technologies/react-hero-logo.svg";
 import ProfilePicture from "../assets/img/team/profile-picture-3.jpg";
+import ChurchSymbol from "../assets/img/technologies/church-symbol.png";
  import { getAuth, onAuthStateChanged } from 'firebase/auth';
  import {app,db} from '../components/Config.js'
 export default (props ,userInfo = {}) => {
@@ -105,9 +106,9 @@ export default (props ,userInfo = {}) => {
  
       <Navbar expand={false} collapseOnSelect variant="dark" className="navbar-theme-primary px-4 d-md-none">
         <Navbar.Brand className="me-lg-5" as={Link} to={Pathname.DashboardOverview.path}>
-          <Image src={ReactHero} className="navbar-brand-light" />
+          <Image src={ChurchSymbol} alt="" className="navbar-brand-light" style={{ width: '80px', height: '80px' }}  />
         </Navbar.Brand>
-      CHURCH NAME
+      CRM
         <Navbar.Toggle as={Button} aria-controls="main-navbar" onClick={onCollapse}>
           <span className="navbar-toggler-icon" />
         </Navbar.Toggle>
@@ -138,6 +139,9 @@ export default (props ,userInfo = {}) => {
 {/* churchroutes */}
 
  <NavItem title="Home" link={Pathname.DashboardOverview.path} icon={faChartPie} />
+ <NavItem title="Profile" link={Pathname.Profile.path}  icon={faChartPie}/>
+ <NavItem title="Users" link={Pathname.Users.path}  icon={faChartPie}/>
+ <NavItem title="Featured Items" link={Pathname.FeaturedItems.path} icon={faChartPie}/>
   <NavItem title="Wards" link={Pathname.Wards.path} icon={faChartPie} />
   <NavItem title="Clergy" link={Pathname.Clergy.path} icon={faChartPie} />
    <NavItem title="Notice" link={Pathname.Notice.path} icon={faChartPie} />

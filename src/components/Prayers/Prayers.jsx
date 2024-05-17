@@ -226,7 +226,7 @@ data_listener(q );
        
         </Row>
 
-           <Card border="light" className="table-wrapper table-responsive shadow-sm">
+           <Card border="light" className="table-wrapper table-responsive shadow-sm mt-3">
       <Card.Body className="pt-0">
         <Table hover className="user-table align-items-center">
           <thead>
@@ -343,13 +343,13 @@ data_listener(q );
               Previous
             </Pagination.Prev>
             {Array.from({ length: Math.ceil(allDocs.length / rows) }, (_, index) => (
-              <Pagination.Item
+              <Pagination.Prev
                 key={index}
                 active={index + 1 === currentPage}
                 onClick={() => onPageChange(index + 1)}
               >
                 {index + 1}
-              </Pagination.Item>
+              </Pagination.Prev>
             ))}
             <Pagination.Next
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(allDocs.length / rows)))}

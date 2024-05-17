@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { Pathname } from "../../routes.js";
 import Spinner from 'react-bootstrap/Spinner';
 import Toast from 'react-bootstrap/Toast';
+import { faChartLine } from '@fortawesome/free-solid-svg-icons'
 
 
 import {
@@ -27,6 +28,7 @@ import {
   orderBy,
   getDoc
 } from "firebase/firestore";
+import { CounterWidget } from "../Widgets.js";
 
 
 
@@ -226,7 +228,7 @@ data_listener(q );
        
         </Row>
 
-           <Card border="light" className="table-wrapper table-responsive shadow-sm">
+           <Card border="light" className="table-wrapper table-responsive shadow-sm mt-3">
       <Card.Body className="pt-0">
         <Table hover className="user-table align-items-center">
           <thead>
@@ -358,6 +360,7 @@ data_listener(q );
       </Card.Footer>
    </Card.Body>
         </Card>
+       
       </div>
       </>
 )}
